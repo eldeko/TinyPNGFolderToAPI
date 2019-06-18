@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using TinyPng;
-using TinyPng.Responses;
 
 namespace TinyBackend
 {
     public class Converter
     {
-           
         TinyPngClient tinyPngClient = ClientSingleton.GetSingleClient();
-        Logger logger = LoggerService.GetLogger();
         public Converter()
         {
         }
 
         public async Task CopyFolderAsync(string sourceFolder, string destFolder)
         {
-           
+
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
             string[] files = Directory.GetFiles(sourceFolder);
@@ -28,7 +23,7 @@ namespace TinyBackend
                 string name = Path.GetFileName(file);
                 string dest = Path.Combine(destFolder, name);
 
-                if  (Path.GetExtension(name) == ".png" ||
+                if (Path.GetExtension(name) == ".png" ||
                      Path.GetExtension(name) == ".jpg" ||
                      Path.GetExtension(name) == ".jpeg")
 
@@ -37,9 +32,10 @@ namespace TinyBackend
                     {
                         Console.WriteLine("Skipping convertion of existing file: " + file.ToString());
                     }
-                    else {
+                    else
+                    {
                         Console.WriteLine("Converting and saving: " + file.ToString());
-                            await ConvertAsync(file, dest);
+                        await ConvertAsync(file, dest);
                     }
                 }
                 else
@@ -52,7 +48,7 @@ namespace TinyBackend
                     {
                         Console.WriteLine("Copying: " + file.ToString());
 
-                             File.Copy(file, dest);
+                        File.Copy(file, dest);
                     }
                 }
             }
@@ -62,9 +58,8 @@ namespace TinyBackend
             {
                 string name = Path.GetFileName(folder);
                 string dest = Path.Combine(destFolder, name);
-               
-                    Console.WriteLine("Creating folder: " + folder);
-                    await CopyFolderAsync(folder, dest);               
+                Console.WriteLine("Creating folder (if not exists): " + folder);
+                await CopyFolderAsync(folder, dest);
             }
         }
         public async Task ConvertAsync(string input, string output)
@@ -72,8 +67,8 @@ namespace TinyBackend
             try
             {
                 await tinyPngClient.Compress(input)
-                                       .Download()
-                                       .SaveImageToDisk(output);
+                                        .Download()
+                                        .SaveImageToDisk(output);
             }
             catch (Exception ex)
             {
@@ -82,17 +77,17 @@ namespace TinyBackend
         }
 
         //To be implemented (not in use nor working)
-        public bool IsParent(string input, string output)
-        {
-           bool IsParent = true;
-            var parentUri = new Uri(input);
-            var childUri = new Uri(output);
-            if (parentUri != childUri && parentUri.IsBaseOf(childUri))
-            {
-                IsParent = false;
-                return IsParent;
-            }
-            return IsParent;
-        }        
+        //public bool IsParent(string input, string output)
+        //{
+        //    bool IsParent = true;
+        //    var parentUri = new Uri(input);
+        //    var childUri = new Uri(output);
+        //    if (parentUri != childUri && parentUri.IsBaseOf(childUri))
+        //    {
+        //        IsParent = false;
+        //        return IsParent;
+        //    }
+        //    return IsParent;
+        //}
     }
 }

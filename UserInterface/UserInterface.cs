@@ -12,12 +12,12 @@ using TinyBackend;
 
 namespace UserInterface
 {
+   
     public partial class UserInterface : MetroFramework.Forms.MetroForm
     {
+        TinyBackend.Converter convertRobert;
         RichConsole richConsole = null;
-        Logger logger = LoggerService.GetLogger();
-        
-
+       
         public UserInterface()
         {
             InitializeComponent();
@@ -25,15 +25,13 @@ namespace UserInterface
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            convertRobert = new Converter();
             richConsole = new RichConsole(rtbOutput);
             Console.SetOut(richConsole);
-
-            Console.WriteLine("Hello World!");
         }
 
         private void FolderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
-
         }
 
         private void ButtonSelectSource_Click(object sender, EventArgs e)
@@ -45,7 +43,6 @@ namespace UserInterface
             if (browserDialogSource.ShowDialog() == DialogResult.OK)
             {
                 SourceFolder.Text = browserDialogSource.SelectedPath;
-
             }
         }
 
@@ -60,17 +57,29 @@ namespace UserInterface
             {
                 TargetFolder.Text = browserDialogTarget.SelectedPath;
             }
-
         }
 
-        private void StartButton_ClickAsync(object sender, EventArgs e)
+        private async void StartButton_ClickAsync(object sender, EventArgs e)
         {
-            
-            TinyBackend.Converter convertRobert = new TinyBackend.Converter();
-                Console.WriteLine("Started Converter");
+            if (StartButton.Enabled)
+            {
+                StartButton.Enabled = false;
+                StartButton.Update();
+                Console.WriteLine("-------------------------------------------------");
+                Console.WriteLine("Calling service with:");
+                Console.WriteLine("Source Folder: " + SourceFolder.Text);
+                Console.WriteLine("Output Folder: " + TargetFolder.Text);
+                Console.WriteLine("-------------------------------------------------");
+                
+               await convertRobert.CopyFolderAsync(SourceFolder.Text, TargetFolder.Text);
+                Application.DoEvents();
+                Console.WriteLine("-------------------------------------------------");
+                Console.WriteLine("Finished");
+              
+                StartButton.Enabled = true;
+                StartButton.Update();
+            } 
            
-            convertRobert.CopyFolderAsync(SourceFolder.Text, TargetFolder.Text);           
-
         }
 
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
@@ -86,6 +95,11 @@ namespace UserInterface
         private void SourceFolder_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ClearLogButton(object sender, EventArgs e)
+        {
+            rtbOutput.Clear();
         }
     }
 }
