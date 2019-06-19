@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TinyPng;
 
@@ -10,11 +11,20 @@ namespace TinyBackend
         private static readonly TinyPngClient singleClient;
        public static TinyPngClient GetSingleClient()
         {
-            if (singleClient == null)
+            try
             {
-                return new TinyPngClient("XVGf1eqtpPhlX5Keocf6IF3WooRFJirv");
+                string apiKey = SaveData.ReadApiKey();
+                if (singleClient == null)
+                {
+                    return new TinyPngClient(apiKey);
+                }
+                return singleClient;
             }
-            return singleClient;
+            catch(Exception ex)
+            {
+                return null;
+            }
+                
         }
     }
 }

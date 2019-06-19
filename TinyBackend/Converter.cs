@@ -14,7 +14,6 @@ namespace TinyBackend
 
         public async Task CopyFolderAsync(string sourceFolder, string destFolder)
         {
-
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
             string[] files = Directory.GetFiles(sourceFolder);
@@ -23,9 +22,9 @@ namespace TinyBackend
                 string name = Path.GetFileName(file);
                 string dest = Path.Combine(destFolder, name);
 
-                if (Path.GetExtension(name) == ".png" ||
-                     Path.GetExtension(name) == ".jpg" ||
-                     Path.GetExtension(name) == ".jpeg")
+                if (Path.GetExtension(name).ToLower() == ".png" ||
+                     Path.GetExtension(name).ToLower() == ".jpg" ||
+                     Path.GetExtension(name).ToLower() == ".jpeg")
 
                 {
                     if (File.Exists(dest))

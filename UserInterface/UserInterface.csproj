@@ -59,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CfgForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CfgForm.Designer.cs">
+      <DependentUpon>CfgForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CfgForm.resx">
+      <DependentUpon>CfgForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface.resx">
       <DependentUpon>UserInterface.cs</DependentUpon>
     </EmbeddedResource>
@@ -78,6 +87,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -96,12 +106,19 @@
   <ItemGroup>
     <Content Include="console-512.ico" />
     <Content Include="MetroFramework.txt" />
+    <None Include="Resources\BambooBackground.PNG" />
+    <None Include="Resources\CfgIcon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\src\TinyPNG\TinyPNG.csproj">
+      <Project>{52901FDB-68CE-4192-8B2B-3BD1773261F3}</Project>
+      <Name>TinyPNG</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TinyBackend\TinyBackend.csproj">
       <Project>{1534409f-a0f6-49fe-b957-0bd74487f539}</Project>
       <Name>TinyBackend</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

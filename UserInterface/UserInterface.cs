@@ -1,18 +1,11 @@
 ﻿using Rich_Console;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TinyBackend;
+using TinyPng;
 
 namespace UserInterface
 {
-   
     public partial class UserInterface : MetroFramework.Forms.MetroForm
     {
         TinyBackend.Converter convertRobert;
@@ -70,16 +63,25 @@ namespace UserInterface
                 Console.WriteLine("Source Folder: " + SourceFolder.Text);
                 Console.WriteLine("Output Folder: " + TargetFolder.Text);
                 Console.WriteLine("-------------------------------------------------");
-                
-               await convertRobert.CopyFolderAsync(SourceFolder.Text, TargetFolder.Text);
+                try
+                {
+                    await convertRobert.CopyFolderAsync(SourceFolder.Text, TargetFolder.Text);
+                }
+                catch (TinyPngApiException ex)
+                {
+                    if (ex.Message.Contains("monthly limit"))
+                    {
+                        Console.WriteLine("Monthly limit exceed exception");
+                        Console.WriteLine("Retry after changing API Key");
+                    }                   
+                }
                 Application.DoEvents();
                 Console.WriteLine("-------------------------------------------------");
                 Console.WriteLine("Finished");
               
                 StartButton.Enabled = true;
                 StartButton.Update();
-            } 
-           
+            }            
         }
 
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
@@ -100,6 +102,22 @@ namespace UserInterface
         private void ClearLogButton(object sender, EventArgs e)
         {
             rtbOutput.Clear();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MetroButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cfgButtonClick(object sender, EventArgs e)
+        {
+            CfgForm cfgForm = new CfgForm();
+            cfgForm.ShowDialog();
         }
     }
 }
