@@ -20,9 +20,9 @@ namespace TinyBackend
                 }
                 return singleClient;
             }
-            catch(Exception ex)
+            catch(TinyPng.Exception ex)
             {
-                return null;
+                throw ex;
             }
                 
         }

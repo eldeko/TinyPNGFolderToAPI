@@ -6,11 +6,11 @@ using TinyPng;
 
 namespace UserInterface
 {
-    public partial class UserInterface : MetroFramework.Forms.MetroForm
+    public partial class UserInterface
     {
-        TinyBackend.Converter convertRobert;
+        
         RichConsole richConsole = null;
-       
+        MiddleService middleService = null;
         public UserInterface()
         {
             InitializeComponent();
@@ -18,13 +18,14 @@ namespace UserInterface
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            convertRobert = new Converter();
+            middleService = new MiddleService();
             richConsole = new RichConsole(rtbOutput);
-            Console.SetOut(richConsole);
+            Console.SetOut(richConsole);            
         }
 
         private void FolderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
+            
         }
 
         private void ButtonSelectSource_Click(object sender, EventArgs e)
@@ -54,70 +55,53 @@ namespace UserInterface
 
         private async void StartButton_ClickAsync(object sender, EventArgs e)
         {
+           bool  rootFolderOpt = optionsList.GetItemChecked(0);
+           bool  onlyImageOpt  = optionsList.GetItemChecked(1);
+
             if (StartButton.Enabled)
             {
                 StartButton.Enabled = false;
-                StartButton.Update();
-                Console.WriteLine("-------------------------------------------------");
-                Console.WriteLine("Calling service with:");
-                Console.WriteLine("Source Folder: " + SourceFolder.Text);
-                Console.WriteLine("Output Folder: " + TargetFolder.Text);
-                Console.WriteLine("-------------------------------------------------");
-                try
-                {
-                    await convertRobert.CopyFolderAsync(SourceFolder.Text, TargetFolder.Text);
-                }
-                catch (TinyPngApiException ex)
-                {
-                    if (ex.Message.Contains("monthly limit"))
-                    {
-                        Console.WriteLine("Monthly limit exceed exception");
-                        Console.WriteLine("Retry after changing API Key");
-                    }                   
-                }
-                Application.DoEvents();
-                Console.WriteLine("-------------------------------------------------");
-                Console.WriteLine("Finished");
+                StartButton.Update();    
+                
+             //  await middleService.CallService(SourceFolder.Text, TargetFolder.Text);
+
+                Application.DoEvents();                
               
                 StartButton.Enabled = true;
                 StartButton.Update();
+                Console.WriteLine("Done");
             }            
         }
 
         private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
-           
+            monthConvNumber.Text = MiddleService.monthConvs.ToString();
         }
 
         private void TargetFolder_Click(object sender, EventArgs e)
         {
-
+            ButtonSelectOutput_Click(sender, e);
         }
 
         private void SourceFolder_Click(object sender, EventArgs e)
         {
-
+            ButtonSelectSource_Click(sender, e);
         }
 
         private void ClearLogButton(object sender, EventArgs e)
         {
-            rtbOutput.Clear();
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MetroButton1_Click(object sender, EventArgs e)
-        {
-
+            rtbOutput.Clear();            
         }
 
         private void cfgButtonClick(object sender, EventArgs e)
         {
             CfgForm cfgForm = new CfgForm();
             cfgForm.ShowDialog();
+        }
+
+        private void GlobantLogo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

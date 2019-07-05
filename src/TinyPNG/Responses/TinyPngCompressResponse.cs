@@ -20,7 +20,6 @@ namespace TinyPng.Responses
             ApiResult = Task.Run(() => Deserialize(msg)).GetAwaiter().GetResult();
             Input = ApiResult.Input;
             Output = ApiResult.Output;
-
         }
         private async Task<TinyPngApiResult> Deserialize(HttpResponseMessage response)
         {

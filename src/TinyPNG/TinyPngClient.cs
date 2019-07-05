@@ -124,14 +124,13 @@ namespace TinyPng
             var response = await HttpClient.PostAsync(ApiEndpoint, CreateContent(data)).ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)
-            {
-               
+            {             
                 return new TinyPngCompressResponse(response, HttpClient);
             }
 
             var errorMsg = JsonConvert.DeserializeObject<ApiErrorResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
          
-          throw new TinyPngApiException((int)response.StatusCode, response.ReasonPhrase, errorMsg.Error, errorMsg.Message);
+          throw new Exception();
            
         }
 

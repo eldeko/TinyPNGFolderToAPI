@@ -2,17 +2,20 @@
 using System.IO;
 using System.Threading.Tasks;
 using TinyPng;
+using TinyPng.Responses;
+using static TinyPng.Exception;
 
 namespace TinyBackend
 {
     public class Converter
     {
         TinyPngClient tinyPngClient = ClientSingleton.GetSingleClient();
+
         public Converter()
         {
         }
 
-        public async Task CopyFolderAsync(string sourceFolder, string destFolder)
+        public async Task CopyFolderAsync(string sourceFolder, string destFolder, bool rootFolderOpt, bool onlyImagesOpt)
         {
             if (!Directory.Exists(destFolder))
                 Directory.CreateDirectory(destFolder);
@@ -23,13 +26,14 @@ namespace TinyBackend
                 string dest = Path.Combine(destFolder, name);
 
                 if (Path.GetExtension(name).ToLower() == ".png" ||
-                     Path.GetExtension(name).ToLower() == ".jpg" ||
-                     Path.GetExtension(name).ToLower() == ".jpeg")
+                    Path.GetExtension(name).ToLower() == ".jpg" ||
+                    Path.GetExtension(name).ToLower() == ".jpeg")
 
                 {
                     if (File.Exists(dest))
                     {
-                        Console.WriteLine("Skipping convertion of existing file: " + file.ToString());
+                        //Console.WriteLine("Skipping already processed Files...");
+                        // alreadySkipped = true;
                     }
                     else
                     {
@@ -39,11 +43,7 @@ namespace TinyBackend
                 }
                 else
                 {
-                    if (File.Exists(dest))
-                    {
-                        Console.WriteLine("Skipping copy of existing file: " + file.ToString());
-                    }
-                    else
+                    if (onlyImagesOpt == false && File.Exists(dest) == false)
                     {
                         Console.WriteLine("Copying: " + file.ToString());
 
@@ -57,36 +57,37 @@ namespace TinyBackend
             {
                 string name = Path.GetFileName(folder);
                 string dest = Path.Combine(destFolder, name);
-                Console.WriteLine("Creating folder (if not exists): " + folder);
-                await CopyFolderAsync(folder, dest);
+                await CopyFolderAsync(folder, dest, rootFolderOpt, onlyImagesOpt);
             }
         }
+
         public async Task ConvertAsync(string input, string output)
         {
             try
             {
-                await tinyPngClient.Compress(input)
-                                        .Download()
-                                        .SaveImageToDisk(output);
+                var compressResponse = await tinyPngClient.Compress(input);
+                MiddleService.monthConvs = compressResponse.CompressionCount;
+                var download = await DownloadExtensions.Download(compressResponse);
+
+                await ImageDataExtensions.SaveImageToDisk(download, output);
+
             }
-            catch (Exception ex)
+            catch (ServerException ex)
             {
-                throw ex;
+                if (TinyPng.Exception.exQuantity < 5)
+                {
+                    Console.WriteLine("Retrying from Exception in 5 seconds.");
+                    System.Threading.Thread.Sleep(5000);
+                    Console.WriteLine("Retry count: " + TinyPng.Exception.exQuantity);
+                    await ConvertAsync(input, output);
+                }
+                else
+                {
+                    Console.WriteLine("Something is wrong with the server. Please try again later");
+                    throw ex;
+                }
+                TinyPng.Exception.exQuantity++;
             }
         }
-
-        //To be implemented (not in use nor working)
-        //public bool IsParent(string input, string output)
-        //{
-        //    bool IsParent = true;
-        //    var parentUri = new Uri(input);
-        //    var childUri = new Uri(output);
-        //    if (parentUri != childUri && parentUri.IsBaseOf(childUri))
-        //    {
-        //        IsParent = false;
-        //        return IsParent;
-        //    }
-        //    return IsParent;
-        //}
     }
 }

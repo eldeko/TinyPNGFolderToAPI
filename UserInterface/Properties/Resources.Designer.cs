@@ -63,9 +63,9 @@ namespace UserInterface.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BambooBackground {
+        internal static System.Drawing.Bitmap CfgIcon {
             get {
-                object obj = ResourceManager.GetObject("BambooBackground", resourceCulture);
+                object obj = ResourceManager.GetObject("CfgIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,39 @@ namespace UserInterface.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CfgIcon {
+        internal static System.Drawing.Bitmap Globant_Green {
             get {
-                object obj = ResourceManager.GetObject("CfgIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("Globant Green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_xpod__1_ {
+            get {
+                object obj = ResourceManager.GetObject("logo xpod (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap openfolder {
+            get {
+                object obj = ResourceManager.GetObject("openfolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap targetfolder2 {
+            get {
+                object obj = ResourceManager.GetObject("targetfolder2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
