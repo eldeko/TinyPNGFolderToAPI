@@ -6,7 +6,7 @@ namespace TinyBackend
 {
     public class MiddleService
     {
-        private readonly Converter convertRobert = new Converter();
+        private readonly Converter converter = new Converter();
         public static int monthConvs { get; set; }
 
         public MiddleService()
@@ -17,7 +17,7 @@ namespace TinyBackend
         {
             try
             {
-                await convertRobert.CopyFolderAsync(SourceFolder, TargetFolder, rootFolderOpt, onlyImagesOpt);
+                await converter.CopyFolderAsync(SourceFolder, TargetFolder, rootFolderOpt, onlyImagesOpt);
             }
             catch (AccountException e)
             {

@@ -42,13 +42,11 @@ namespace UserInterface
             // ApiKeyTextBox
             // 
             this.ApiKeyTextBox.Font = new System.Drawing.Font("Arial", 10F);
-            this.ApiKeyTextBox.Location = new System.Drawing.Point(222, 82);
+            this.ApiKeyTextBox.Location = new System.Drawing.Point(222, 83);
             this.ApiKeyTextBox.MaxLength = 32;
             this.ApiKeyTextBox.Name = "ApiKeyTextBox";
             this.ApiKeyTextBox.Size = new System.Drawing.Size(517, 30);
             this.ApiKeyTextBox.TabIndex = 0;
-            this.ApiKeyTextBox.Text = SaveData.ReadApiKey();
-
             // 
             // ApiKeyLabel
             // 

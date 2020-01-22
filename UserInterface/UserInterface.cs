@@ -2,7 +2,6 @@
 using System;
 using System.Windows.Forms;
 using TinyBackend;
-using TinyPng;
 
 namespace UserInterface
 {
@@ -21,11 +20,6 @@ namespace UserInterface
             middleService = new MiddleService();
             richConsole = new RichConsole(rtbOutput);
             Console.SetOut(richConsole);            
-        }
-
-        private void FolderBrowserDialog1_HelpRequest(object sender, EventArgs e)
-        {
-            
         }
 
         private void ButtonSelectSource_Click(object sender, EventArgs e)
@@ -63,7 +57,7 @@ namespace UserInterface
                 StartButton.Enabled = false;
                 StartButton.Update();    
                 
-             //  await middleService.CallService(SourceFolder.Text, TargetFolder.Text);
+               await middleService.CallService(SourceFolder.Text, TargetFolder.Text, false, false);
 
                 Application.DoEvents();                
               
@@ -73,7 +67,7 @@ namespace UserInterface
             }            
         }
 
-        private void RichTextBox1_TextChanged(object sender, EventArgs e)
+        private void rtbOutput_TextChanged(object sender, EventArgs e)
         {
             monthConvNumber.Text = MiddleService.monthConvs.ToString();
         }
@@ -97,11 +91,6 @@ namespace UserInterface
         {
             CfgForm cfgForm = new CfgForm();
             cfgForm.ShowDialog();
-        }
-
-        private void GlobantLogo_Click(object sender, EventArgs e)
-        {
-
-        }
+        }        
     }
 }

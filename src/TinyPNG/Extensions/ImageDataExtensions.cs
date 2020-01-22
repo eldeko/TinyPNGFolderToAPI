@@ -71,7 +71,5 @@ namespace TinyPng
             var byteData = await result.GetImageByteData();
             File.WriteAllBytes(filePath, byteData);
         }
-
-
     }
 }

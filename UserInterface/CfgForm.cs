@@ -18,19 +18,8 @@ namespace UserInterface
             InitializeComponent();
         }
 
-        private void MetroLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MetroTextBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void CancelButton_Click(object sender, EventArgs e)
-        {
-            
+        {            
             Close();
         }
 

@@ -62,7 +62,5 @@ namespace TinyPng
 
             return await Resize(result, resizeOp);
         }
-
-
     }
 }

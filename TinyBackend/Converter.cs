@@ -2,8 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using TinyPng;
-using TinyPng.Responses;
-using static TinyPng.Exception;
 
 namespace TinyBackend
 {

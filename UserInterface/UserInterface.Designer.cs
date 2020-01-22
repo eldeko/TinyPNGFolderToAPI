@@ -100,7 +100,7 @@ namespace UserInterface
             this.rtbOutput.Size = new System.Drawing.Size(779, 193);
             this.rtbOutput.TabIndex = 5;
             this.rtbOutput.Text = "";
-            this.rtbOutput.TextChanged += new System.EventHandler(this.RichTextBox1_TextChanged);
+            this.rtbOutput.TextChanged += new System.EventHandler(this.rtbOutput_TextChanged);
             // 
             // ClearButton
             // 
@@ -181,7 +181,6 @@ namespace UserInterface
             this.GlobantLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.GlobantLogo.TabIndex = 14;
             this.GlobantLogo.TabStop = false;
-            this.GlobantLogo.Click += new System.EventHandler(this.GlobantLogo_Click);
             // 
             // pictureBox2
             // 
@@ -246,6 +245,7 @@ namespace UserInterface
             this.Name = "UserInterface";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Assets Converter Utility";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GlobantLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

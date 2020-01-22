@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TinyBackend
 {
-   public static class SaveData
+    public static class SaveData
     { 
         public static void SaveCfg (string ApiKey)
         {
@@ -25,11 +21,7 @@ namespace TinyBackend
             {
                return File.ReadAllText(file);
             }
-
             return string.Empty;
-
         }
     }
-
-
 }

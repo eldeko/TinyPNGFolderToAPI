@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using TinyPng;
-using TinyPng.Responses;
+﻿using System.Threading.Tasks;
 
 namespace TinyBackend
 {

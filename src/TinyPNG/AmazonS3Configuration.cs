@@ -41,6 +41,5 @@ namespace TinyPng
         {
             return new AmazonS3Configuration(AwsAccessKeyId, AwsSecretAccessKey, Bucket, Region);
         }
-
     }
 }
