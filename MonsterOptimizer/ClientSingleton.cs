@@ -12,7 +12,7 @@ namespace TinyBackend
         {
             if (singleClient == null)
             {
-                return new TinyPngClient("XVGf1eqtpPhlX5Keocf6IF3WooRFJirv");
+                return new TinyPngClient("INSERT YOUR TINYPNG KEY HERE");
             }
             return singleClient;
         }
